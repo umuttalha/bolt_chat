@@ -1,15 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+
+import Landing from "./routes/Landing";
+import ErrorPage from "./routes/ErrorPage";
+import Message from "./routes/Message";
+
+import { useMyContext } from "./UserContext";
+
+export default function App() {
+  const { user } = useMyContext();
+
+  console.log(user);
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-center">Hello world!</h1> 
+      <Router>
+        <Routes>
+          <Route path="/messages" element={<Message />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
-
-export default App
