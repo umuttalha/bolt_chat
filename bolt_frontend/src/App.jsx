@@ -9,24 +9,35 @@ import {
 
 import Landing from "./routes/Landing";
 import ErrorPage from "./routes/ErrorPage";
-import Message from "./routes/Message";
+import MessagePage from "./routes/MessagePage";
 
 import { useMyContext } from "./UserContext";
+
+
+
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
+
+
 
 export default function App() {
   const { user } = useMyContext();
 
-  console.log(user);
-
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/messages" element={<Message />} />
-          <Route path="/" element={<Landing />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Navigate to="/messages" /> : <Landing />}
+        />
+        <Route
+          path="/messages"
+          element={user ? <MessagePage /> : <Navigate to="/" />}
+        />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
     </>
   );
 }

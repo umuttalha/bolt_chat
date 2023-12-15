@@ -58,8 +58,22 @@ router.post("/register", (req, res) => {
                     .json({ error: "An error occurred while registering" });
                 }
 
+                const userId = this.lastID;
+                console.log("deneme")
+                console.log(userId);
+            
+                const token = jwt.sign(
+                  { username: username, id: userId },
+                  secretKey,
+                  {
+                    expiresIn: "2w",
+                  }
+                );
+            
                 res.status(201).json({
                   message: "User registered successfully. You can login now",
+                  token: token,
+                  username: username,
                 });
               }
             );

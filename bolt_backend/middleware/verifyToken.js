@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const secretKey = process.env.SECRET_KEY;
 
-function verifyToken(req, res, next) {
+function verifyTokenMiddleware(req, res, next) {
 
     const authHeader = req.headers.authorization;
   
@@ -31,4 +31,4 @@ function verifyToken(req, res, next) {
     }
   }
 
-module.exports = verifyToken
+module.exports = verifyTokenMiddleware
