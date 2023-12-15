@@ -25,7 +25,6 @@ app.use(express.json());
 
 const db = require("./database.js");
 
-const db_func = require("./db_functions.js")
 
 
 const verifyToken = (token) => {
