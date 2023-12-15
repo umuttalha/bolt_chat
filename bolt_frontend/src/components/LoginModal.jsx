@@ -43,6 +43,8 @@ export default function LoginModal({ isOpen, onClose }) {
           username: loginData.loginUsername,
           password: loginData.loginPassword
         })
+
+        console.log(response)
         
 
         Cookies.set('token', response.data.token, { expires: 14 })
@@ -119,7 +121,7 @@ export default function LoginModal({ isOpen, onClose }) {
 
     const handleRegister = async () => {
       try {
-        const response = await axios.post('http://localhost:3001/auth/register',data)
+        const response = await axios.post('http://localhost:3000/auth/register',data)
         
 
         Cookies.set('token', response.data.token, { expires: 14 })

@@ -10,8 +10,13 @@ const secretKey = process.env.SECRET_KEY;
 const saltRounds = 10;
 
 router.post("/register", (req, res) => {
+
+
+
   try {
-    const { username, password } = req.body;
+    const { username,email, password } = req.body;
+
+    console.log(username)
 
     if (username.length < 3) {
       return res
@@ -32,8 +37,12 @@ router.post("/register", (req, res) => {
         if (err) {
           return res
             .status(500)
-            .json({ error: "An error occurred while registering" });
+            .json({ error: "An error asdasdasdasdasdasd while registering" });
         }
+
+        console.log("user")
+        console.log(user)
+
 
         if (user) {
           return res.status(409).json({ error: "Username already exists" });
@@ -49,8 +58,8 @@ router.post("/register", (req, res) => {
           })
           .then((hash) => {
             db.run(
-              "INSERT INTO users (username, password, salt) VALUES (?, ?, ?)",
-              [username, hash, generatedSalt],
+              "INSERT INTO users (username,email, password, salt) VALUES (?,?, ?, ?)",
+              [username, email,hash, generatedSalt],
               (err) => {
                 if (err) {
                   return res
